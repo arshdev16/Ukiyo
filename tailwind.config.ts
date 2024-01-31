@@ -11,10 +11,11 @@ const config: Config = {
       fontFamily: {
         workbench: ["Workbench", "sans-serif"],
       },
-      backgroundImage: {
+      backgroundImage:{
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "NavHomeImg": "#000000"
       },
     },
   },

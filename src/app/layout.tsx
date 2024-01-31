@@ -15,13 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        <div className="my-14"/>
-        {children}
+        <section className="bg-NavHomeImg">
+          <Navbar />
+          <div className="pt-14" />
+          {children}
+        </section>
       </body>
     </html>
   );
