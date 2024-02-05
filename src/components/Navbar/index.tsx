@@ -4,14 +4,16 @@ import React, { useState } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6";
+import CartSideBar from "../CartSideBar";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
   const [isOpened, setIsOpened] = useState(false);
   return (
-    <nav className="fixed top-0 w-screen shadow bg-transparent backdrop-blur-md ">
-      <div className="container px-6 py-3 mx-auto md:flex">
+    <nav className="fixed top-0 w-screen right-0">
+      <div className="container px-6 py-3 min-w-full md:flex bg-[rgba(0,0,0,0.73)]">
         <div className="flex items-center justify-between">
           <Link href="/">UKIYO</Link>
           <div className="flex lg:hidden">
@@ -27,19 +29,18 @@ const Navbar = (props: Props) => {
             </button>
           </div>
         </div>
-
         <div
           className={`${
             isOpened
               ? "translate-x-0 opacity-100 "
               : "opacity-0 -translate-x-full"
-          } absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between `}
+          } bg-[rgba(0,0,0,0.73)] md:bg-transparent md:backdrop-blur-0 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between mt-[.75rem]`}
         >
           <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
             <Link
               onClick={() => setIsOpened(false)}
               href="/"
-              className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
+              className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2 mix-blend-exclusion"
             >
               Home
             </Link>
@@ -48,17 +49,23 @@ const Navbar = (props: Props) => {
               href="/tshirts"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
             >
-              T-shirts
+              Shop
             </Link>
             <Link
               onClick={() => setIsOpened(false)}
-              href="#"
+              href="/hoodies"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
             >
-              Contact
+              Hoodie
+            </Link>
+            <Link
+              onClick={() => setIsOpened(false)}
+              href="/mugs"
+              className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
+            >
+              Mugs
             </Link>
           </div>
-
           <div className="relative mt-4 md:mt-0">
             <span className="text-gray-600 absolute inset-y-0 left-0 flex items-center pl-3">
               <FaMagnifyingGlass />
@@ -71,6 +78,7 @@ const Navbar = (props: Props) => {
             />
           </div>
         </div>
+        <CartSideBar />
       </div>
     </nav>
   );

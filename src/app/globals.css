@@ -11,7 +11,14 @@
 body {
   color: white;
   background: #121212;
-  
+  overflow-y: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 @layer utilities {
@@ -19,4 +26,3 @@ body {
     text-wrap: balance;
   }
 }
-
