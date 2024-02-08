@@ -1,16 +1,22 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Ref, useState } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import CartSideBar from "../CartSideBar";
 
-type Props = {};
+type Props = {
+  isCartOpened: boolean;
+  setIsCartOpened: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  eleRef: Ref<HTMLDivElement>;
+  toggleCart: () => void;
+};
 
 const Navbar = (props: Props) => {
   const [isOpened, setIsOpened] = useState(false);
+  const { isCartOpened, setIsCartOpened, eleRef, toggleCart } = props;
   return (
     <nav className="fixed top-0 w-screen right-0">
       <div className="container px-6 py-3 min-w-full md:flex bg-[rgba(0,0,0,0.73)]">
@@ -78,7 +84,18 @@ const Navbar = (props: Props) => {
             />
           </div>
         </div>
-        <CartSideBar />
+        <button
+          onClick={toggleCart}
+          className="mx-3"
+        >
+          <FaCartShopping size={25} />
+        </button>
+        <CartSideBar
+          isCartOpened={isCartOpened}
+          setIsCartOpened={setIsCartOpened}
+          eleRef={eleRef}
+          toggleCart={toggleCart}
+        />
       </div>
     </nav>
   );
