@@ -86,7 +86,7 @@ const Navbar = (props: Props) => {
         </div>
         <button
           onClick={toggleCart}
-          className="mx-3"
+          className="mx-3 hidden md:inline"
         >
           <FaCartShopping size={25} />
         </button>

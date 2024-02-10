@@ -1,5 +1,6 @@
 "use client";
 import { cardData } from "@/src/lib/interfaces";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -7,18 +8,19 @@ type Props = {
 };
 
 const CardOne = (props: Props) => {
-  const { name, imgUrl, price } = props.cardData;
-  console.log(imgUrl);
+  const { name, imgUrl, price, slug } = props.cardData;
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-sm mx-3 my-4">
+    <Link
+      href={`/${slug}`}
+      className="flex flex-col items-center justify-center w-full max-w-xs mx-auto my-4"
+    >
       <div
         className="w-full h-64 bg-white bg-center bg-no-repeat bg-contain rounded-lg shadow-md"
         style={{
-          backgroundImage:
-            `url(${imgUrl})`,
+          backgroundImage: `url(${imgUrl})`,
         }}
       ></div>
-      <div className="w-56 -mt-10 overflow-hidden rounded-lg shadow-lg md:w-64 bg-gray-900">
+      <div className="w-56 -mt-10 overflow-hidden rounded-b-lg shadow-lg md:w-64 bg-gray-900">
         <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
           {name}
         </h3>
@@ -32,7 +34,7 @@ const CardOne = (props: Props) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

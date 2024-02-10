@@ -1,5 +1,6 @@
 export type cardData = {
-    name: string;
-    imgUrl: string;
-    price: number;
-}
+  name: string;
+  imgUrl: string;
+  price: number;
+  slug: string;
+};
