@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Pincode from "./Pincode";
 
 type Props = {};
 
@@ -80,7 +81,8 @@ const Product = (props: Props) => {
           carico di energia, in attesa della prossima corsa.
         </p>
         <h6 className="text-2xl font-semibold">$ 199.00</h6>
-        <div className="flex flex-row items-center gap-12">
+        <Pincode />
+        <div className="flex flex-row items-center gap-8">
           <div className="flex flex-row items-center">
             <button
               className="bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl"
@@ -96,8 +98,14 @@ const Product = (props: Props) => {
               +
             </button>
           </div>
-          <button className="bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full">
+        </div>
+        <div className="flex gap-6">
+          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full">
             Add to Cart
+          </button>
+
+          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full">
+            Buy Now
           </button>
         </div>
       </div>

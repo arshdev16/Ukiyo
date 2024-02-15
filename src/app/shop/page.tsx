@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {};
 
-const Tshirts = (props: Props) => {
+const Shop = (props: Props) => {
   const dummyshirtdata = [
     {
       name: "JOJO's Joraro Kujo star platinum Tshirt",
@@ -56,7 +56,7 @@ const Tshirts = (props: Props) => {
   ];
 
   return (
-    <div className="container mx-auto flex justify-center flex-wrap">
+    <div className="container mx-auto flex justify-center flex-wrap gap-4">
     {dummyshirtdata.length !== 0 ? (
         dummyshirtdata.map((cardData, index) => (
           <CardOne key={index} cardData={cardData} />
@@ -68,4 +68,4 @@ const Tshirts = (props: Props) => {
   );
 };
 
-export default Tshirts;
+export default Shop;

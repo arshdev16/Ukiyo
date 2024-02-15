@@ -52,7 +52,7 @@ const Navbar = (props: Props) => {
             </Link>
             <Link
               onClick={() => setIsOpened(false)}
-              href="/tshirts"
+              href="/shop"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
             >
               Shop
