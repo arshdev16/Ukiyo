@@ -93,18 +93,17 @@ const Product = (props: Props) => {
             <span className="py-4 px-6 rounded-lg">{amount}</span>
             <button
               className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl"
-              onClick={() => setAmount((prev) => prev + 1)}
             >
               +
             </button>
           </div>
         </div>
         <div className="flex gap-6">
-          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full">
+          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">
             Add to Cart
           </button>
 
-          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full">
+          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">
             Buy Now
           </button>
         </div>

@@ -23,12 +23,15 @@ const Navbar = (props: Props) => {
         <div className="flex items-center justify-between">
           <Link href="/">UKIYO</Link>
           <div className="flex lg:hidden">
+            <button onClick={toggleCart} className="mx-3  md:hidden ">
+              <FaCartShopping size={20} />
+            </button>
             <button
               onClick={() => {
                 setIsOpened(!isOpened);
               }}
               type="button"
-              className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 md:hidden"
+              className="md:hidden"
               aria-label="toggle menu"
             >
               {!isOpened ? <RiMenu3Fill size={20} /> : <RxCross2 size={20} />}
@@ -84,10 +87,7 @@ const Navbar = (props: Props) => {
             />
           </div>
         </div>
-        <button
-          onClick={toggleCart}
-          className="mx-3 hidden md:inline"
-        >
+        <button onClick={toggleCart} className="mx-3 hidden md:inline">
           <FaCartShopping size={25} />
         </button>
         <CartSideBar

@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "static.nike.com",
         port: "",
         pathname: "/**",
+      },   {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+        port: "",
+        pathname: "/images/I/**",
       },
     ],
   },

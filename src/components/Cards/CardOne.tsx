@@ -9,6 +9,7 @@ type Props = {
 
 const CardOne = (props: Props) => {
   const { name, imgUrl, price, slug } = props.cardData;
+
   return (
     <Link
       href={`/${slug}`}

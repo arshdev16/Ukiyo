@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
+import QueryClientWrapper from "./QueryClientWrapper";
 
 export default function LayoutWrapper({
   children,
@@ -21,7 +22,7 @@ export default function LayoutWrapper({
     }
   };
   return (
-    <>
+    <QueryClientWrapper>
       <section className="bg-NavHomeImg">
         <Navbar
           eleRef={ref}
@@ -32,6 +33,6 @@ export default function LayoutWrapper({
         <div className="pt-14" />
         {children}
       </section>
-    </>
+    </QueryClientWrapper>
   );
 }
