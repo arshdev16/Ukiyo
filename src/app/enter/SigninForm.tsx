@@ -1,14 +1,28 @@
 import React from "react";
-import { FaMobile } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { signinFormSchema } from "@/src/lib/interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
   changeFormState: () => void;
 };
 
+type FormFields = z.infer<typeof signinFormSchema>;
+
 const SigninForm = (props: Props) => {
   const { changeFormState } = props;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormFields>({ resolver: zodResolver(signinFormSchema) });
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    console.log(data);
+  };
+
   return (
     <section>
       <div className="container flex items-start justify-center min-h-screen px-6 mx-auto">
@@ -35,11 +49,13 @@ const SigninForm = (props: Props) => {
             </span>
 
             <input
+              {...register("email")}
               type="email"
               className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Email address"
             />
           </div>
+          {errors.email && <div>{errors.email.message}</div>}
           <div className="relative flex items-center mt-4">
             <span className="absolute">
               <RiLockPasswordFill
@@ -49,25 +65,18 @@ const SigninForm = (props: Props) => {
               />
             </span>
             <input
+              {...register("password")}
               type="password"
               className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Password"
             />
           </div>
+          {errors.password && <div>{errors.password.message}</div>}
 
           <div className="mt-6">
             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              Sign Up
+              Sign In
             </button>
-
-            <div className="mt-6 text-center ">
-              <a
-                href="#"
-                className="text-sm text-blue-500 hover:underline dark:text-blue-400"
-              >
-                Already have an account?
-              </a>
-            </div>
           </div>
         </form>
       </div>
