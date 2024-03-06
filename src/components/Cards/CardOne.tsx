@@ -1,10 +1,10 @@
 "use client";
-import { cardData } from "@/src/lib/interfaces";
+import { productData } from "@/src/lib/interfaces";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
-  cardData: cardData;
+  cardData: productData;
 };
 
 const CardOne = (props: Props) => {

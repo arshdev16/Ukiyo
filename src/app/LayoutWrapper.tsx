@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
-import QueryClientWrapper from "./QueryClientWrapper";
+import ReactQueryProvider from './ReactQueryProvider'
 
 export default function LayoutWrapper({
   children,
@@ -22,7 +22,7 @@ export default function LayoutWrapper({
     }
   };
   return (
-    <QueryClientWrapper>
+    <ReactQueryProvider>
       <section className="bg-NavHomeImg">
         <Navbar
           eleRef={ref}
@@ -30,9 +30,9 @@ export default function LayoutWrapper({
           setIsCartOpened={setIsCartOpened}
           toggleCart={toggleCart}
         />
-        <div className="pt-14" />
+        <div className="pt-20" />
         {children}
       </section>
-    </QueryClientWrapper>
+    </ReactQueryProvider>
   );
 }

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export type cardData = {
+export type productData = {
   name: string;
-  imgUrl: string;
+  imgUrl: Array<string>;
   price: number;
   slug: string;
 };
