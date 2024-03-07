@@ -5,10 +5,8 @@ import Image from "next/image";
 import Pincode from "./Pincode";
 import { useQuery } from "@tanstack/react-query";
 import { GetDocClientSide } from "@/src/data-access/GetDocClientSide";
-import { db } from "@/src/lib/firebase";
 import { DocumentData, doc, setDoc } from "firebase/firestore";
-import { useDocument } from "react-firebase-hooks/firestore";
-import { productData } from "@/src/lib/interfaces";
+import Loading from "./Loading";
 type Props = {};
 
 const Product = (props: Props) => {
@@ -34,7 +32,7 @@ const Product = (props: Props) => {
   }, [documentData]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
