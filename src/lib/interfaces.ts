@@ -5,6 +5,8 @@ export type productData = {
   imgUrl: Array<string>;
   price: number;
   slug: string;
+  sizes: Array<string>;
+  colors: Array<string>;
 };
 
 export type CartItemData = {

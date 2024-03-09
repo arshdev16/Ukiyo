@@ -7,25 +7,29 @@ import { useQuery } from "@tanstack/react-query";
 import { GetDocClientSide } from "@/src/data-access/GetDocClientSide";
 import { DocumentData, doc, setDoc } from "firebase/firestore";
 import Loading from "./Loading";
+import SizeSelector from "./SizeSelector";
 type Props = {};
 
 const Product = (props: Props) => {
-  const path = usePathname();
+  const path = usePathname().slice(8);
   const [docData, setDocData] = useState<DocumentData | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [activeImage, setActiveImage] = useState<string>("");
   const [amount, setAmount] = useState(1);
+  const [sizes, setSizes] = useState<string[]>([])
+  const [selectedSize, setSelectedSize] = useState<string>();
   const {
     data: documentData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["shrits", path],
+    queryKey: ["shirts", path],
     queryFn: () => GetDocClientSide(`shirts${path}`),
   });
   useEffect(() => {
     if (documentData) {
       setDocData(documentData);
+      setSizes(documentData.sizes)
       setImages(documentData.imgUrl);
       setActiveImage(documentData.imgUrl[0] || "");
     }
@@ -38,6 +42,11 @@ const Product = (props: Props) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  const changeSize = (option: string) => {
+    setSelectedSize(option);
+  };
+
   return (
     <div className="flex flex-col my-5 justify-between lg:flex-row gap-16 lg:items-center">
       <div className="flex flex-col gap-6 lg:w-2/4">
@@ -106,7 +115,7 @@ const Product = (props: Props) => {
         </p>
         <h6 className="text-2xl font-semibold">{docData?.price}/-</h6>
         <Pincode />
-        <div className="flex flex-row items-center gap-8">
+        <div className="flex flex-row items-center justify-start gap-8">
           <div className="flex flex-row items-center">
             <button
               className="bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl"
@@ -119,6 +128,7 @@ const Product = (props: Props) => {
               +
             </button>
           </div>
+          <SizeSelector sizes={sizes} changeSize={changeSize}/>
         </div>
         <div className="flex gap-6">
           <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">

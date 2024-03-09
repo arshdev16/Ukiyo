@@ -1,7 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
-import ReactQueryProvider from './ReactQueryProvider'
+import ReactQueryProvider from "./ReactQueryProvider";
+import Script from "next/script";
 
 export default function LayoutWrapper({
   children,
@@ -23,6 +24,7 @@ export default function LayoutWrapper({
   };
   return (
     <ReactQueryProvider>
+      <Script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"/>
       <section className="bg-NavHomeImg">
         <Navbar
           eleRef={ref}

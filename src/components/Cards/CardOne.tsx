@@ -12,7 +12,7 @@ const CardOne = (props: Props) => {
 
   return (
     <Link
-      href={`/${slug}`}
+      href={`/product/${slug}`}
       className="flex flex-col items-center justify-center w-full max-w-xs"
     >
       <div

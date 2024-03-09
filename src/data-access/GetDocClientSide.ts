@@ -9,11 +9,9 @@ export const GetDocClientSide = async (docId: string) =>  {
     if (documentSnapshot.exists()) {
       return documentSnapshot.data() as DocumentData;
     } else {
-      console.log('Document does not exist');
       return null;
     }
   } catch (error) {
-    console.error('Error fetching document:', error);
     return null;
   }
 }
