@@ -40,3 +40,11 @@ export const signinFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
+
+export const userDetails = z.object({
+  name: z.string(),
+  address: z.string(),
+  pincode: z.string(),
+  state: z.string(),
+  city: z.string(),
+});

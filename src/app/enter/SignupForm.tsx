@@ -23,6 +23,7 @@ const SignupForm = (props: Props) => {
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     console.log(data);
   };
+
   return (
     <section>
       <div className="container flex items-start justify-center min-h-screen px-6 mx-auto">
@@ -42,17 +43,21 @@ const SignupForm = (props: Props) => {
               sign in
             </span>
           </div>
-
-          <div className="relative flex items-center mt-8">
+          <div className="relative flex items-center mt-6">
             <span className="absolute">
-              <FaMobile width={20} height={20} className="text-gray-600 mx-3" />
+              <span className="absolute">
+                <FaMobile
+                  width={20}
+                  height={20}
+                  className="text-gray-600 mx-3"
+                />
+              </span>
             </span>
-
             <input
               {...register("phoneNumber")}
-              type="text"
+              type="tel"
               className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-              placeholder="Phone Number"
+              placeholder="Phone number"
             />
           </div>
           {errors.phoneNumber && <div>{errors.phoneNumber.message}</div>}
