@@ -1,7 +1,9 @@
 import CardOne from "@/src/components/Cards/CardOne";
-import { GetCollection } from "@/src/data-access/GetCollection";
+import { GetCollection } from "@/src/data-access/GetCollectionServerSide";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { signOut } from "firebase/auth";
+import { auth } from "@/src/lib/firebase";
 
 type Props = {};
 

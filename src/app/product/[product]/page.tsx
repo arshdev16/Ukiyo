@@ -6,7 +6,7 @@ import Pincode from "./Pincode";
 import { useQuery } from "@tanstack/react-query";
 import { GetDocClientSide } from "@/src/data-access/GetDocClientSide";
 import { DocumentData, doc, setDoc } from "firebase/firestore";
-import Loading from "./Loading";
+import Loading from "../../../components/Loading/Loading";
 import SizeSelector from "./SizeSelector";
 type Props = {};
 

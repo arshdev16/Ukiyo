@@ -10,7 +10,7 @@ export type productData = {
 };
 
 export type CartItemData = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   quantity: number;

@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import ReactQueryProvider from "./ReactQueryProvider";
 import Script from "next/script";
+import {Toaster} from "react-hot-toast"
 
 export default function LayoutWrapper({
   children,
@@ -13,7 +14,6 @@ export default function LayoutWrapper({
   const ref = useRef<HTMLDivElement>(null);
   const toggleCart = () => {
     setIsCartOpened(isCartOpened);
-
     if (ref.current?.classList.contains("translate-x-0")) {
       ref.current.classList.add("translate-x-full");
       ref.current.classList.remove("translate-x-0");
@@ -22,6 +22,7 @@ export default function LayoutWrapper({
       ref.current.classList.remove("translate-x-full");
     }
   };
+
   return (
     <ReactQueryProvider>
       <Script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"/>
@@ -35,6 +36,7 @@ export default function LayoutWrapper({
         <div className="pt-20" />
         {children}
       </section>
+      <Toaster/>
     </ReactQueryProvider>
   );
 }

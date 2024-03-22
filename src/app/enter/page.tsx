@@ -9,9 +9,7 @@ const Enter = (props: Props) => {
   //True = signup, False = login
   const [isLoginOrSignup, setIsLoginOrSignup] = useState(true);
   const changeFormState = () => {
-    console.log(isLoginOrSignup)
     setIsLoginOrSignup(!isLoginOrSignup);
-    console.log(isLoginOrSignup)
   };
   return (
     <>

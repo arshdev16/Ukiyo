@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { signupFormSchema } from "@/src/lib/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitOnSignupForm } from "@/src/use-cases/UserFunctions";
 
 type FormFields = z.infer<typeof signupFormSchema>;
 
@@ -21,7 +22,7 @@ const SignupForm = (props: Props) => {
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(signupFormSchema) });
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+    SubmitOnSignupForm(data)
   };
 
   return (

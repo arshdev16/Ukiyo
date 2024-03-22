@@ -1,4 +1,6 @@
+"use client"
 import Image from "next/image";
+import { useAuth } from "../lib/useAuth";
 
 export default function Home() {
   return (

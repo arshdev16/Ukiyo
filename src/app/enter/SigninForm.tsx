@@ -5,6 +5,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { signinFormSchema } from "@/src/lib/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitOnSigninForm } from "@/src/use-cases/UserFunctions";
+import { useRouter } from "next/navigation";
 
 type Props = {
   changeFormState: () => void;
@@ -13,6 +15,7 @@ type Props = {
 type FormFields = z.infer<typeof signinFormSchema>;
 
 const SigninForm = (props: Props) => {
+  const router = useRouter();
   const { changeFormState } = props;
   const {
     register,
@@ -20,13 +23,14 @@ const SigninForm = (props: Props) => {
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(signinFormSchema) });
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+    SubmitOnSigninForm(data)
+    router.push('/');
   };
 
   return (
     <section>
       <div className="container flex items-start justify-center min-h-screen px-6 mx-auto">
-        <form className="w-full max-w-md">
+        <form className="w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex justify-center mx-auto">
             {/* <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt=""> */}
           </div>

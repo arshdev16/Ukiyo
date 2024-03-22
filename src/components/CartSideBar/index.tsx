@@ -1,8 +1,12 @@
 //@ts-nocheck
-import React, { Ref, useRef } from "react";
+'use client';
+import React, { Ref, useEffect, useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import CartCard from "./CartCard";
-import { getTotalCost } from "@/src/lib/helpers";
+import { useQuery } from "@tanstack/react-query";
+import GetCartData from "@/src/data-access/GetCartData";
+import Loading from "../Loading/Loading";
+import { DocumentData } from "firebase/firestore";
 
 type Props = {
   isCartOpened: boolean;
@@ -11,9 +15,9 @@ type Props = {
   toggleCart: () => void;
 };
 
-const cartData = [
+const cartDataa = [
   {
-    id: 1,
+    id: "idjisnosn",
     name: "Product A",
     price: 19.99,
     quantity: 2,
@@ -21,7 +25,7 @@ const cartData = [
     productImage: "https://m.media-amazon.com/images/I/41bqEPB6-gL._SY741_.jpg",
   },
   {
-    id: 2,
+    id: "9jsnusn9oew",
     name: "Product B",
     price: 29.95,
     quantity: 1,
@@ -29,7 +33,7 @@ const cartData = [
     productImage: "https://m.media-amazon.com/images/I/41bqEPB6-gL._SY741_.jpg",
   },
   {
-    id: 3,
+    id: "ondupzox",
     name: "Product C",
     price: 14.5,
     quantity: 3,
@@ -40,11 +44,24 @@ const cartData = [
 
 const CartSideBar = (props: Props) => {
   let totalCost = 0;
+  const [cartData, setCartData] = useState<DocumentData|null>(null)
+  const {data, isLoading, error} = useQuery({
+    queryKey:['cartData'], 
+    queryFn: GetCartData
+  })
+
+useEffect(()=> {
+  if(data){
+    setCartData(data)
+  }
+}, [data])
+  
   for (const obj of cartData) {
     totalCost += obj.total;
   }
 
   return (
+    
     <div
       ref={props.eleRef}
       className={`translate-x-full

@@ -6,6 +6,11 @@ import { RxCross2 } from "react-icons/rx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import CartSideBar from "../CartSideBar";
+import { DocumentData } from "firebase/firestore";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@/src/lib/useAuth";
+import Loading from "@/src/components/Loading/Loading";
+import GetCartData from "@/src/data-access/GetCartData";
 
 type Props = {
   isCartOpened: boolean;
@@ -15,6 +20,7 @@ type Props = {
 };
 
 const Navbar = (props: Props) => {
+  const { user } = useAuth();
   const [isOpened, setIsOpened] = useState(false);
   const { isCartOpened, setIsCartOpened, eleRef, toggleCart } = props;
   return (
@@ -69,10 +75,10 @@ const Navbar = (props: Props) => {
             </Link>
             <Link
               onClick={() => setIsOpened(false)}
-              href="/mugs"
+              href="/user"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 md:mx-2"
             >
-              Mugs
+              User
             </Link>
           </div>
           <div className="relative mt-4 md:mt-0">
@@ -90,12 +96,14 @@ const Navbar = (props: Props) => {
         <button onClick={toggleCart} className="mx-3 hidden md:inline">
           <FaCartShopping size={25} />
         </button>
-        <CartSideBar
-          isCartOpened={isCartOpened}
-          setIsCartOpened={setIsCartOpened}
-          eleRef={eleRef}
-          toggleCart={toggleCart}
-        />
+        {/* {user && (
+          <CartSideBar
+            isCartOpened={isCartOpened}
+            setIsCartOpened={setIsCartOpened}
+            eleRef={eleRef}
+            toggleCart={toggleCart}
+          />
+        )} */}
       </div>
     </nav>
   );
