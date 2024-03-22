@@ -11,8 +11,7 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { useRouter } from "next/navigation";
-import { notifyError, notifyLoading, notifySuccess } from "../lib/toasts";
+import { notifyError, notifySuccess } from "../lib/toasts";
 
 type signupformfields = z.infer<typeof signupFormSchema>;
 

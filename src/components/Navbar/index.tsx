@@ -6,11 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import CartSideBar from "../CartSideBar";
-import { DocumentData } from "firebase/firestore";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/src/lib/useAuth";
-import Loading from "@/src/components/Loading/Loading";
-import GetCartData from "@/src/data-access/GetCartData";
 
 type Props = {
   isCartOpened: boolean;
@@ -96,14 +92,14 @@ const Navbar = (props: Props) => {
         <button onClick={toggleCart} className="mx-3 hidden md:inline">
           <FaCartShopping size={25} />
         </button>
-        {/* {user && (
+        {user && (
           <CartSideBar
             isCartOpened={isCartOpened}
             setIsCartOpened={setIsCartOpened}
             eleRef={eleRef}
             toggleCart={toggleCart}
           />
-        )} */}
+        )}
       </div>
     </nav>
   );
