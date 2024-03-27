@@ -1,6 +1,8 @@
 "use client";
+import { notifyLoading } from "@/src/lib/toasts";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoMdPin } from "react-icons/io";
 
 type Props = {};
@@ -17,11 +19,11 @@ const Pincode = (props: Props) => {
     //Cheking logic here
     const num = Math.random();
     if (num <= 0.5) {
+      notifyLoading("Checking...")
       setIsServicable(false);
     } else {
       setIsServicable(true);
     }
-    console.log(data);
     reset();
   };
 

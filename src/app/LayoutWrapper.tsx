@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import ReactQueryProvider from "./ReactQueryProvider";
 import Script from "next/script";
 import {Toaster} from "react-hot-toast"
+import { useAuth } from "../lib/useAuth";
 
 export default function LayoutWrapper({
   children,

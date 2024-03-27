@@ -94,6 +94,7 @@ const Navbar = (props: Props) => {
         </button>
         {user && (
           <CartSideBar
+          userId={user.uid}
             isCartOpened={isCartOpened}
             setIsCartOpened={setIsCartOpened}
             eleRef={eleRef}

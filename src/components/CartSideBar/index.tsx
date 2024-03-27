@@ -6,6 +6,7 @@ import CartCard from "./CartCard";
 import GetCartData from "@/src/data-access/GetCartData";
 
 type Props = {
+  userId: string;
   isCartOpened: boolean;
   setIsCartOpened: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   eleRef: Ref<HTMLDivElement>;
@@ -48,7 +49,7 @@ const CartSideBar = (props: Props) => {
           <li className="m-4 my-8">Items in your cart will show here</li>
         ) : (
           cartData.map((data, index) => (
-            <CartCard cartData={data} key={index} />
+            <CartCard userId={props.userId} cartData={data} key={index} />
           ))
         )}
       </ul>

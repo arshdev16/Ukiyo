@@ -16,6 +16,7 @@ export type CartItemData = {
   quantity: number;
   total: number;
   productImage: string;
+  size: string
 };
 
 export const signupFormSchema = z

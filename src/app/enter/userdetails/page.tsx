@@ -4,19 +4,24 @@ import { z } from "zod";
 import { userDetails } from "@/src/lib/interfaces";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useRouter, useSearchParams } from "next/navigation";
+import { SubmitUserDetailsForm } from "@/src/use-cases/UserFunctions";
 type Props = {};
 
 type FormFields = z.infer<typeof userDetails>;
 
 const UserDetails = (props: Props) => {
+  const searchParams = useSearchParams()
+  const uid = searchParams.get("uid")
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(userDetails) });
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormFields> =async (data) => {
+   await SubmitUserDetailsForm(data, uid)
+   router.push('/')
   };
   return (
     <section className="flex flex-column">

@@ -2,7 +2,10 @@ import { getDocs, collection, DocumentData } from "firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
 import { db } from "../lib/firebase";
 import { useAuth } from "../lib/useAuth";
-import { CartItemData } from "../lib/interfaces";
+
+const AddToCart = async () => {
+
+}
 
 const FetchCartData = async (collectionPath: string) => {
   const collectionRef = collection(db, collectionPath);

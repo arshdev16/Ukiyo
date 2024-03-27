@@ -3,20 +3,25 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Pincode from "./Pincode";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { GetDocClientSide } from "@/src/data-access/GetDocClientSide";
 import { DocumentData, doc, setDoc } from "firebase/firestore";
 import Loading from "../../../components/Loading/Loading";
 import SizeSelector from "./SizeSelector";
+// import { AddToCart } from "@/src/use-cases/CartFunctions";
+import { useAuth } from "@/src/lib/useAuth";
 type Props = {};
 
 const Product = (props: Props) => {
+  const { user } = useAuth();
+  const userId = user?.uid;
+  const queryClient = useQueryClient();
   const path = usePathname().slice(8);
   const [docData, setDocData] = useState<DocumentData | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [activeImage, setActiveImage] = useState<string>("");
   const [amount, setAmount] = useState(1);
-  const [sizes, setSizes] = useState<string[]>([])
+  const [sizes, setSizes] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<string>();
   const {
     data: documentData,
@@ -29,11 +34,25 @@ const Product = (props: Props) => {
   useEffect(() => {
     if (documentData) {
       setDocData(documentData);
-      setSizes(documentData.sizes)
+      setSizes(documentData.sizes);
       setImages(documentData.imgUrl);
       setActiveImage(documentData.imgUrl[0] || "");
     }
   }, [documentData]);
+  // const AddProductToCart = useMutation({
+  //   mutationFn: () =>
+  //     AddToCart(
+  //       `/users/${userId}/cart`,
+  //       docData?.price,
+  //       docData?.productImage,
+  //       docData?.name,
+  //       amount,
+  //       selectedSize
+  //     ),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["cart"] });
+  //   },
+  // });
 
   if (isLoading) {
     return <Loading />;
@@ -128,10 +147,15 @@ const Product = (props: Props) => {
               +
             </button>
           </div>
-          <SizeSelector sizes={sizes} changeSize={changeSize}/>
+          <SizeSelector sizes={sizes} changeSize={changeSize} />
         </div>
         <div className="flex gap-6">
-          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">
+          <button
+            className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600"
+            onClick={() => {
+              // AddProductToCart.mutate()
+            }}
+          >
             Add to Cart
           </button>
 

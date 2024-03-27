@@ -7,6 +7,9 @@ import { z } from "zod";
 import { signupFormSchema } from "@/src/lib/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitOnSignupForm } from "@/src/use-cases/UserFunctions";
+import { useRouter} from "next/navigation";
+import { notifySuccess } from "@/src/lib/toasts";
+
 
 type FormFields = z.infer<typeof signupFormSchema>;
 
@@ -16,13 +19,16 @@ type Props = {
 
 const SignupForm = (props: Props) => {
   const { changeFormState } = props;
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(signupFormSchema) });
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    SubmitOnSignupForm(data)
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+   const uid = await SubmitOnSignupForm(data);
+   notifySuccess("Be sure to verify your email")
+   router.push(`/enter/userdetails?uid=${uid}`)
   };
 
   return (
