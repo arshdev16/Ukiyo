@@ -1,26 +1,36 @@
-import { updateDoc, doc, deleteDoc, collection, addDoc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  deleteDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import { db } from "../lib/firebase";
 
-// export const AddToCart = async (
-//   collectionPath: string,
-//   price: number,
-//   productImage: number,
-//   name: string,
-//   amount: number,
-//   selectedSize: string|undefined
-// ) => {
-//   const collectionRef = collection(db, collectionPath);
-//   const total = price * amount;
-//   const data = {
-//     name,
-//     price,
-//     productImage,
-//     quantity:amount,
-//     total,
-//     size:selectedSize,
-//   };
-//   return await addDoc(collectionRef, data)
-// };
+export const AddToCart = async (
+  collectionPath: string,
+  price: number,
+  productImage: number,
+  name: string,
+  amount: number,
+  selectedSize: string | undefined
+) => {
+  try {
+    const collectionRef = collection(db, collectionPath);
+    const total = price * amount;
+    const data = {
+      name,
+      price,
+      productImage,
+      quantity: amount,
+      total,
+      size: selectedSize,
+    };
+    await addDoc(collectionRef, data);
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const CartMinus = async (
   docPath: string,

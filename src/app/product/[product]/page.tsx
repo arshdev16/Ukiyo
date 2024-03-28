@@ -8,7 +8,7 @@ import { GetDocClientSide } from "@/src/data-access/GetDocClientSide";
 import { DocumentData, doc, setDoc } from "firebase/firestore";
 import Loading from "../../../components/Loading/Loading";
 import SizeSelector from "./SizeSelector";
-// import { AddToCart } from "@/src/use-cases/CartFunctions";
+import { AddToCart } from "@/src/use-cases/CartFunctions";
 import { useAuth } from "@/src/lib/useAuth";
 type Props = {};
 
@@ -22,7 +22,7 @@ const Product = (props: Props) => {
   const [activeImage, setActiveImage] = useState<string>("");
   const [amount, setAmount] = useState(1);
   const [sizes, setSizes] = useState<string[]>([]);
-  const [selectedSize, setSelectedSize] = useState<string>();
+  const [selectedSize, setSelectedSize] = useState<string>("XL");
   const {
     data: documentData,
     isLoading,
@@ -39,20 +39,19 @@ const Product = (props: Props) => {
       setActiveImage(documentData.imgUrl[0] || "");
     }
   }, [documentData]);
-  // const AddProductToCart = useMutation({
-  //   mutationFn: () =>
-  //     AddToCart(
-  //       `/users/${userId}/cart`,
-  //       docData?.price,
-  //       docData?.productImage,
-  //       docData?.name,
-  //       amount,
-  //       selectedSize
-  //     ),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["cart"] });
-  //   },
-  // });
+  const AddProductToCart = useMutation({
+    mutationFn: () =>
+      AddToCart(
+        `users/${userId}/cart`,
+        docData?.price,
+        docData?.imgUrl[0],
+        docData?.name,
+        amount,
+        selectedSize
+      ),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
+    onError: (e) => console.error(e),
+  });
 
   if (isLoading) {
     return <Loading />;
@@ -64,6 +63,14 @@ const Product = (props: Props) => {
 
   const changeSize = (option: string) => {
     setSelectedSize(option);
+  };
+  const addOneToAmount = () => {
+    const newAmount = amount + 1;
+    setAmount(newAmount);
+  };
+  const removeOneFromAmount = () => {
+    const newAmount = amount - 1;
+    setAmount(newAmount);
   };
 
   return (
@@ -138,12 +145,15 @@ const Product = (props: Props) => {
           <div className="flex flex-row items-center">
             <button
               className="bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl"
-              onClick={() => setAmount((prev) => prev - 1)}
+              onClick={removeOneFromAmount}
             >
               -
             </button>
             <span className="py-4 px-6 rounded-lg">{amount}</span>
-            <button className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl">
+            <button
+              className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl"
+              onClick={addOneToAmount}
+            >
               +
             </button>
           </div>
@@ -153,7 +163,7 @@ const Product = (props: Props) => {
           <button
             className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600"
             onClick={() => {
-              // AddProductToCart.mutate()
+              AddProductToCart.mutate();
             }}
           >
             Add to Cart
