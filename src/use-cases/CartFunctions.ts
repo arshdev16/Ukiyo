@@ -4,6 +4,11 @@ import {
   deleteDoc,
   collection,
   addDoc,
+  query,
+  limit,
+  Query,
+  getDocs,
+  writeBatch
 } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
@@ -61,4 +66,33 @@ export const CartPlus = async (
     quantity: amount + 1,
     total: totalAmount,
   });
+};
+
+export const ClearCart = (collectionPath: string) => {
+  console.log(collectionPath)
+  const collectionRef = collection(db, collectionPath)
+  try {
+    return new Promise((resolve, reject) => {
+      //@ts-ignore
+      DeleteCartBatch(collectionRef, resolve).catch(reject);
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const DeleteCartBatch = async (query: Query, resolve: () => void) => {
+  const snapshot = await getDocs(query);
+  const batchSize = snapshot.size;
+  if (batchSize === 0) {
+    resolve();
+    return;
+  }
+  const batch = writeBatch(db)
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref)
+  })
+  process.nextTick(()=>{
+    DeleteCartBatch(query, resolve)
+  })
 };

@@ -1,11 +1,7 @@
 import { getDocs, collection, DocumentData } from "firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
 import { db } from "../lib/firebase";
-import { useAuth } from "../lib/useAuth";
-
-const AddToCart = async () => {
-
-}
+import { useUserStore } from "../lib/store";
 
 const FetchCartData = async (collectionPath: string) => {
   const collectionRef = collection(db, collectionPath);
@@ -15,11 +11,11 @@ const FetchCartData = async (collectionPath: string) => {
 };
 
 const GetCartData = () => {
-  const { user, loading } = useAuth();
+  const {userData} = useUserStore()
   return useQuery({
     queryKey: ['cart'], 
-    queryFn: () => FetchCartData(`/users/${user?.uid}/cart`),
-    enabled: !!user && !loading
+    queryFn: () => FetchCartData(`/users/${userData?.uid}/cart`),
+    enabled: !!userData 
   });
 };
 export default GetCartData;

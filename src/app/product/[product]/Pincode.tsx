@@ -44,7 +44,7 @@ const Pincode = (props: Props) => {
           className="block w-full md:w-1/3 placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300"
         />
 
-        <button className="px-6 py-2 h-max font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-violet-800 rounded-lg hover:bg-violet-500 focus:outline-none">
+        <button className="bg-violet-800 text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">
           Check
         </button>
       </div>

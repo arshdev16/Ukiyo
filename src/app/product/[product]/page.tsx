@@ -9,12 +9,12 @@ import { DocumentData, doc, setDoc } from "firebase/firestore";
 import Loading from "../../../components/Loading/Loading";
 import SizeSelector from "./SizeSelector";
 import { AddToCart } from "@/src/use-cases/CartFunctions";
-import { useAuth } from "@/src/lib/useAuth";
+import { useUserStore } from "@/src/lib/store";
 type Props = {};
 
 const Product = (props: Props) => {
-  const { user } = useAuth();
-  const userId = user?.uid;
+  const { userData} = useUserStore();
+  const userId = userData?.uid;
   const queryClient = useQueryClient();
   const path = usePathname().slice(8);
   const [docData, setDocData] = useState<DocumentData | null>(null);
@@ -72,7 +72,13 @@ const Product = (props: Props) => {
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
-
+  const BuyNow = ()=> {
+    if(userData?.details){
+      console.log("boom")
+    }else{
+      console.log("zoom")
+    }
+  }
   return (
     <div className="flex flex-col my-5 justify-between lg:flex-row gap-16 lg:items-center">
       <div className="flex flex-col gap-6 lg:w-2/4">
@@ -169,7 +175,7 @@ const Product = (props: Props) => {
             Add to Cart
           </button>
 
-          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600">
+          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600" onClick={BuyNow}>
             Buy Now
           </button>
         </div>

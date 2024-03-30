@@ -30,6 +30,7 @@ export const SubmitOnSignupForm = async (formValues: signupformfields) => {
         uid: user.uid,
         email: email,
         phoneNumber,
+        details: false,
         createdAt: serverTimestamp(),
       });
       notifySuccess("Signup successfull");
@@ -68,6 +69,7 @@ export const SubmitUserDetailsForm = async (
       pincode,
       state,
       city,
+      details: true,
     }, {merge: true});
     notifySuccess("Added User Details")
 

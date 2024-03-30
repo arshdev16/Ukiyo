@@ -16,7 +16,7 @@ export type CartItemData = {
   quantity: number;
   total: number;
   productImage: string;
-  size: string
+  size: string,
 };
 
 export const signupFormSchema = z
@@ -48,4 +48,7 @@ export const userDetails = z.object({
   pincode: z.string(),
   state: z.string(),
   city: z.string(),
+  uid: z.string(),
+  details: z.boolean()
 });
+

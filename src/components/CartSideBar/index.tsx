@@ -1,12 +1,16 @@
 //@ts-nocheck
 "use client";
-import React, { Ref, useEffect, useState } from "react";
+import { Ref } from "react";
+import GetCartData from "@/src/data-access/GetCartData";
+import { ClearCart } from "@/src/use-cases/CartFunctions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IoIosCloseCircle } from "react-icons/io";
 import CartCard from "./CartCard";
-import GetCartData from "@/src/data-access/GetCartData";
+import { useUserStore } from "@/src/lib/store";
+
 
 type Props = {
-  userId: string;
+  userId: string | undefined;
   isCartOpened: boolean;
   setIsCartOpened: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   eleRef: Ref<HTMLDivElement>;
@@ -15,13 +19,21 @@ type Props = {
 
 const CartSideBar = (props: Props) => {
   let totalCost = 0;
-  const { data:cartData, isLoading, error } = GetCartData();
+  const {userData} = useUserStore()
+  const queryClient = useQueryClient();
+  const { data: cartData, isLoading, error } = GetCartData();
+  const clearCart = useMutation({
+    mutationFn: () => ClearCart(`user/${userData?.uid}/cart`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
   if (isLoading) {
     return null;
   }
 
   if (error) {
-    return null
+    return null;
   }
 
   if (!cartData) {
@@ -31,7 +43,6 @@ const CartSideBar = (props: Props) => {
   for (const obj of cartData) {
     totalCost += obj.total;
   }
-
   return (
     <div
       ref={props.eleRef}
@@ -59,6 +70,13 @@ const CartSideBar = (props: Props) => {
         </span>
         <button className="bg-violet-800 min-w-fit text-white font-semibold px-4 py-2 rounded-xl h-full hover:bg-violet-600">
           Checkout
+        </button>
+
+        <button
+          className="bg-violet-800 min-w-fit text-white font-semibold px-4 py-2 rounded-xl h-full hover:bg-violet-600 mx-2"
+          onClick={clearCart.mutate}
+        >
+          Clear
         </button>
       </div>
     </div>

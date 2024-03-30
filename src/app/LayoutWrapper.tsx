@@ -1,10 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import ReactQueryProvider from "./ReactQueryProvider";
 import Script from "next/script";
-import {Toaster} from "react-hot-toast"
-import { useAuth } from "../lib/useAuth";
+import { Toaster } from "react-hot-toast";
+import { useUserStore } from "../lib/store";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 export default function LayoutWrapper({
   children,
@@ -23,10 +25,17 @@ export default function LayoutWrapper({
       ref.current.classList.remove("translate-x-full");
     }
   };
+  const { userData, setUser } = useUserStore();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
 
+    return unsubscribe;
+  }, [setUser]);
   return (
     <ReactQueryProvider>
-      <Script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"/>
+      <Script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js" />
       <section className="bg-NavHomeImg">
         <Navbar
           eleRef={ref}
@@ -37,7 +46,7 @@ export default function LayoutWrapper({
         <div className="pt-20" />
         {children}
       </section>
-      <Toaster/>
+      <Toaster />
     </ReactQueryProvider>
   );
 }

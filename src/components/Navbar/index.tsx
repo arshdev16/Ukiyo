@@ -6,7 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import CartSideBar from "../CartSideBar";
-import { useAuth } from "@/src/lib/useAuth";
+import { useUserStore } from "@/src/lib/store";
 
 type Props = {
   isCartOpened: boolean;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const Navbar = (props: Props) => {
-  const { user } = useAuth();
+  const {userData} = useUserStore()
   const [isOpened, setIsOpened] = useState(false);
   const { isCartOpened, setIsCartOpened, eleRef, toggleCart } = props;
   return (
@@ -92,15 +92,13 @@ const Navbar = (props: Props) => {
         <button onClick={toggleCart} className="mx-3 hidden md:inline">
           <FaCartShopping size={25} />
         </button>
-        {user && (
-          <CartSideBar
-          userId={user.uid}
-            isCartOpened={isCartOpened}
-            setIsCartOpened={setIsCartOpened}
-            eleRef={eleRef}
-            toggleCart={toggleCart}
-          />
-        )}
+        <CartSideBar
+          userId={userData?.uid}
+          isCartOpened={isCartOpened}
+          setIsCartOpened={setIsCartOpened}
+          eleRef={eleRef}
+          toggleCart={toggleCart}
+        />
       </div>
     </nav>
   );
