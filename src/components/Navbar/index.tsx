@@ -7,6 +7,8 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import CartSideBar from "../CartSideBar";
 import { useUserStore } from "@/src/lib/store";
+// import Logo from "@/public/logo.svg";
+import Image from "next/image";
 
 type Props = {
   isCartOpened: boolean;
@@ -16,14 +18,16 @@ type Props = {
 };
 
 const Navbar = (props: Props) => {
-  const {userData} = useUserStore()
+  const { userData } = useUserStore();
   const [isOpened, setIsOpened] = useState(false);
   const { isCartOpened, setIsCartOpened, eleRef, toggleCart } = props;
   return (
-    <nav className="fixed top-0 w-screen right-0">
-      <div className="container px-6 py-3 min-w-full md:flex bg-[rgba(0,0,0,0.73)]">
+    <nav className="text-[#e76a38] fixed top-0 w-screen right-0">
+      <div className="container px-6 py-3 min-w-full md:flex bg-[#211a2e]">
         <div className="flex items-center justify-between">
-          <Link href="/">UKIYO</Link>
+          <Link href="/" className="text-[#e76a38]">
+            {/* <Image priority src={Logo} alt="logo" width={100} height={10}/> */}
+          </Link>
           <div className="flex lg:hidden">
             <button onClick={toggleCart} className="mx-3  md:hidden ">
               <FaCartShopping size={20} />
@@ -45,7 +49,7 @@ const Navbar = (props: Props) => {
             isOpened
               ? "translate-x-0 opacity-100 "
               : "opacity-0 -translate-x-full"
-          } bg-[rgba(0,0,0,0.73)] md:bg-transparent md:backdrop-blur-0 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between mt-[.75rem]`}
+          } bg-[#211a2e] md:bg-transparent md:backdrop-blur-0 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between mt-[.75rem]`}
         >
           <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
             <Link

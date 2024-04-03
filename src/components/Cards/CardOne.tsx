@@ -13,7 +13,7 @@ const CardOne = (props: Props) => {
   return (
     <Link
       href={`/product/${slug}`}
-      className="flex flex-col items-center justify-center w-full max-w-xs"
+      className="flex flex-col items-center justify-center w-full max-w-xs text-white"
     >
       <div
         className="w-full h-64 bg-white bg-center bg-no-repeat bg-contain rounded-lg shadow-md"
@@ -26,11 +26,11 @@ const CardOne = (props: Props) => {
           {name}
         </h3>
 
-        <div className="flex items-center justify-between px-3 py-2 bg-[#001d3d]">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#2f2542]">
           <span className="font-bold text-gray-800 dark:text-gray-200">
             {price}/-
           </span>
-          <button className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-[#6200b3] rounded focus:outline-none">
+          <button className="px-2 py-1 text-xs font-semibold uppercase transition-colors duration-300 transform bg-[#e76a38] rounded focus:outline-none">
             Add to
           </button>
         </div>

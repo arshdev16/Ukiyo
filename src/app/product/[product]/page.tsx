@@ -13,7 +13,7 @@ import { useUserStore } from "@/src/lib/store";
 type Props = {};
 
 const Product = (props: Props) => {
-  const { userData} = useUserStore();
+  const { userData } = useUserStore();
   const userId = userData?.uid;
   const queryClient = useQueryClient();
   const path = usePathname().slice(8);
@@ -72,13 +72,7 @@ const Product = (props: Props) => {
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
-  const BuyNow = ()=> {
-    if(userData?.details){
-      console.log("boom")
-    }else{
-      console.log("zoom")
-    }
-  }
+  const BuyNow = () => {};
   return (
     <div className="flex flex-col my-5 justify-between lg:flex-row gap-16 lg:items-center">
       <div className="flex flex-col gap-6 lg:w-2/4">
@@ -132,7 +126,7 @@ const Product = (props: Props) => {
       </div>
       <div className="flex flex-col gap-4 lg:w-2/4 mx-8">
         <div>
-          <span className=" text-violet-600 font-semibold">
+          <span className=" text-[#e76a38] font-semibold">
             Special Sneaker
           </span>
           <h1 className="text-3xl font-bold">{docData?.name}</h1>
@@ -150,14 +144,14 @@ const Product = (props: Props) => {
         <div className="flex flex-row items-center justify-start gap-8">
           <div className="flex flex-row items-center">
             <button
-              className="bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl"
+              className="bg-gray-200 py-2 px-5 rounded-lg  text-[#e76a38] text-3xl"
               onClick={removeOneFromAmount}
             >
               -
             </button>
             <span className="py-4 px-6 rounded-lg">{amount}</span>
             <button
-              className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl"
+              className="bg-gray-200 py-2 px-4 rounded-lg  text-[#e76a38] text-3xl"
               onClick={addOneToAmount}
             >
               +
@@ -167,7 +161,7 @@ const Product = (props: Props) => {
         </div>
         <div className="flex gap-6">
           <button
-            className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600"
+            className="bg-[#e76a38] text-white min-w-fit font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-[#ff7a45]"
             onClick={() => {
               AddProductToCart.mutate();
             }}
@@ -175,7 +169,10 @@ const Product = (props: Props) => {
             Add to Cart
           </button>
 
-          <button className="bg-violet-800 min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-violet-600" onClick={BuyNow}>
+          <button
+            className="bg-[#e76a38] min-w-fit text-white font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-[#ff7a45]"
+            onClick={BuyNow}
+          >
             Buy Now
           </button>
         </div>

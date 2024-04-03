@@ -10,11 +10,12 @@
 
 body {
   color: white;
-  background: #121212;
+  background: #211a2e;
   overflow-y: scroll;
   scrollbar-width: none; 
   -ms-overflow-style: none;
 }
+
 
 body::-webkit-scrollbar {
   width: 0;

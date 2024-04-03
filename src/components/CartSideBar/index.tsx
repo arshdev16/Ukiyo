@@ -8,7 +8,6 @@ import { IoIosCloseCircle } from "react-icons/io";
 import CartCard from "./CartCard";
 import { useUserStore } from "@/src/lib/store";
 
-
 type Props = {
   userId: string | undefined;
   isCartOpened: boolean;
@@ -19,14 +18,12 @@ type Props = {
 
 const CartSideBar = (props: Props) => {
   let totalCost = 0;
-  const {userData} = useUserStore()
+  const { userData } = useUserStore();
   const queryClient = useQueryClient();
   const { data: cartData, isLoading, error } = GetCartData();
-  const clearCart = useMutation({
-    mutationFn: () => ClearCart(`user/${userData?.uid}/cart`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
+  const clearCartMutation = useMutation({
+    mutationFn: () => ClearCart(`users/${userData?.uid}/cart`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
   });
   if (isLoading) {
     return null;
@@ -47,10 +44,10 @@ const CartSideBar = (props: Props) => {
     <div
       ref={props.eleRef}
       className={`translate-x-full
-      transform transition-transform absolute sidebar top-5 border-[1px] rounded-s-lg bg-black p-4 z-20 px-6 flex flex-col items-center right-0`}
+      transform transition-transform absolute sidebar top-5 border-[1px] rounded-s-lg bg-[#2f2542] p-4 z-20 px-6 flex flex-col items-center right-0 text-white`}
     >
       <button onClick={props.toggleCart}>
-        <span className="absolute top-3 right-3 cursor-pointer">
+        <span className="absolute top-3 bg-white right-3 cursor-pointer rounded-full">
           <IoIosCloseCircle size={20} />
         </span>
       </button>
@@ -65,16 +62,18 @@ const CartSideBar = (props: Props) => {
         )}
       </ul>
       <div>
-        <span className="self-start mx-4 my-2 font-bold">
+        <span className="self-start mx-4 my-2 font-bold ">
           Total: {totalCost}/-
         </span>
-        <button className="bg-violet-800 min-w-fit text-white font-semibold px-4 py-2 rounded-xl h-full hover:bg-violet-600">
+        <button className="bg-[#e76a38] p-1 min-w-fit font-semibold px-4 py-2 rounded-xl h-full hover:bg-[#ff7a45]">
           Checkout
         </button>
 
         <button
-          className="bg-violet-800 min-w-fit text-white font-semibold px-4 py-2 rounded-xl h-full hover:bg-violet-600 mx-2"
-          onClick={clearCart.mutate}
+          className="bg-[#e76a38] min-w-fit font-semibold px-4 py-2 rounded-xl h-full hover:bg-[#ff7a45] mx-2"
+          onClick={() => {
+            clearCartMutation.mutate();
+          }}
         >
           Clear
         </button>

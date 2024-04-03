@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SubmitUserDetailsForm } from "@/src/use-cases/UserFunctions";
+import { useMutation } from "@tanstack/react-query";
 type Props = {};
 
 type FormFields = z.infer<typeof userDetails>;

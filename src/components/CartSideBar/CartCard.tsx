@@ -10,6 +10,9 @@ type Props = {
   userId: string;
 };
 
+//write a function to delete a collection from firesteor
+
+
 const CartCard = (props: Props) => {
   const { id, name, quantity, productImage, total, price } = props.cartData;
   const queryClient = useQueryClient();
@@ -44,7 +47,7 @@ const CartCard = (props: Props) => {
             cartAdd.mutate();
           }}
         >
-          <FaCirclePlus className="text-violet-800 hover:text-violet-600 bg-white rounded-full" />
+          <FaCirclePlus className="text-[#e76a38] hover:text-[#ff7a45] bg-white rounded-full" />
         </button>
         <span className="mx-2">{quantity}</span>
         <button
@@ -52,7 +55,7 @@ const CartCard = (props: Props) => {
             cartRemove.mutate();
           }}
         >
-          <FaCircleMinus className="text-violet-800 hover:text-violet-600 bg-white rounded-full" />
+          <FaCircleMinus className="text-[#e76a38] hover:text-[#ff7a45] bg-white rounded-full" />
         </button>
       </div>
     </div>

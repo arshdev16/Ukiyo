@@ -10,7 +10,7 @@ const SizeSelector = (props: Props) => {
   return (
       <select
         id="sizes"
-        className="p-3 rounded-xl text-violet-800"
+        className="p-3 rounded-xl text-[#e76a38]"
         onChange={(e) => changeSize(e.currentTarget.value)}
       >
         {sizes.map((data, index) => (
