@@ -1,4 +1,5 @@
 import { CartItemData } from "@/src/lib/interfaces";
+import { useLoadingStore } from "@/src/lib/store";
 import { CartPlus, CartMinus } from "@/src/use-cases/CartFunctions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
@@ -15,12 +16,18 @@ type Props = {
 
 const CartCard = (props: Props) => {
   const { id, name, quantity, productImage, total, price } = props.cartData;
+  const {setIsLoading} = useLoadingStore()
   const queryClient = useQueryClient();
   const cartRemove = useMutation({
     mutationFn: () =>
       CartMinus(`/users/${props.userId}/cart/${id}`, quantity, total, price),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+      setIsLoading(false)
+    },
+    onError: (e) => {
+      setIsLoading(false);
+      console.error(e);
     },
   });
 
@@ -29,6 +36,11 @@ const CartCard = (props: Props) => {
       CartPlus(`/users/${props.userId}/cart/${id}`, quantity, total, price),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+      setIsLoading(false)
+    },
+    onError: (e) => {
+      setIsLoading(false);
+      console.error(e);
     },
   });
   return (
@@ -44,6 +56,7 @@ const CartCard = (props: Props) => {
       <div className="flex items-center">
         <button
           onClick={() => {
+            setIsLoading(true)
             cartAdd.mutate();
           }}
         >
@@ -52,6 +65,7 @@ const CartCard = (props: Props) => {
         <span className="mx-2">{quantity}</span>
         <button
           onClick={() => {
+            setIsLoading(true)
             cartRemove.mutate();
           }}
         >

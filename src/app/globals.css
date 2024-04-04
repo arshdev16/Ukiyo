@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Workbench&display=swap");
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -9,6 +10,7 @@
 }
 
 body {
+  font-family: "Roboto Condensed", sans-serif;
   color: white;
   background: #211a2e;
   overflow-y: scroll;

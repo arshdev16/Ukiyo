@@ -7,9 +7,9 @@ import { z } from "zod";
 import { signupFormSchema } from "@/src/lib/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitOnSignupForm } from "@/src/use-cases/UserFunctions";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { notifySuccess } from "@/src/lib/toasts";
-
+import { useLoadingStore } from "@/src/lib/store";
 
 type FormFields = z.infer<typeof signupFormSchema>;
 
@@ -20,15 +20,18 @@ type Props = {
 const SignupForm = (props: Props) => {
   const { changeFormState } = props;
   const router = useRouter();
+  const { setIsLoading } = useLoadingStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormFields>({ resolver: zodResolver(signupFormSchema) });
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-   const uid = await SubmitOnSignupForm(data);
-   notifySuccess("Be sure to verify your email")
-   router.push(`/enter/userdetails?uid=${uid}`)
+    setIsLoading(true);
+    const uid = await SubmitOnSignupForm(data);
+    notifySuccess("Be sure to verify your email");
+    setIsLoading(false);
+    router.push(`/enter/userdetails?uid=${uid}`);
   };
 
   return (
@@ -40,11 +43,11 @@ const SignupForm = (props: Props) => {
           </div>
 
           <div className="flex items-center justify-center mt-6">
-            <span className="w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white cursor-pointer">
+            <span className="w-1/3 pb-4 font-medium text-center text--800 capitalize border-b-2 border-[#e76a38]">
               sign up
             </span>
             <span
-              className="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b dark:border-gray-400 dark:text-gray-300"
+              className="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b-2 dark:border-gray-400 dark:text-gray-300"
               onClick={changeFormState}
             >
               sign in
@@ -63,7 +66,7 @@ const SignupForm = (props: Props) => {
             <input
               {...register("phoneNumber")}
               type="tel"
-              className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-10 py-3 text-white bg-[#2f2542] rounded-lg border focus:border-[#e76a38] focus:outline-none"
               placeholder="Phone number"
             />
           </div>
@@ -76,7 +79,7 @@ const SignupForm = (props: Props) => {
             <input
               {...register("email")}
               type="email"
-              className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-10 py-3 text-white bg-[#2f2542] rounded-lg border focus:border-[#e76a38] focus:outline-none"
               placeholder="Email address"
             />
           </div>
@@ -92,7 +95,7 @@ const SignupForm = (props: Props) => {
             <input
               {...register("password")}
               type="password"
-              className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-10 py-3 text-white bg-[#2f2542] rounded-lg border focus:border-[#e76a38] focus:outline-none"
               placeholder="Password"
             />
           </div>
@@ -109,7 +112,7 @@ const SignupForm = (props: Props) => {
             <input
               {...register("confirmPassword")}
               type="password"
-              className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-10 py-3 text-white bg-[#2f2542] rounded-lg border focus:border-[#e76a38] focus:outline-none"
               placeholder="Confirm Password"
             />
           </div>
@@ -118,7 +121,7 @@ const SignupForm = (props: Props) => {
           )}
 
           <div className="mt-6">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize bg-[#e76a38] rounded-lg hover:bg-[#ff7a45] focus:outline-none">
               Sign Up
             </button>
           </div>

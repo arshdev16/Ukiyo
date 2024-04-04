@@ -5,6 +5,18 @@ import { userDetails } from "./interfaces";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
+type loadingState = {
+  isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
+};
+
+export const useLoadingStore = create<loadingState>()((set) => ({
+  isLoading: false,
+  setIsLoading: (value) => {
+    set({ isLoading: value });
+  },
+}));
+
 type userDocData = z.infer<typeof userDetails>;
 type userState = {
   userData: userDocData | null;

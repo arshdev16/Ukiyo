@@ -6,7 +6,7 @@ import { ClearCart } from "@/src/use-cases/CartFunctions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IoIosCloseCircle } from "react-icons/io";
 import CartCard from "./CartCard";
-import { useUserStore } from "@/src/lib/store";
+import { useLoadingStore, useUserStore } from "@/src/lib/store";
 
 type Props = {
   userId: string | undefined;
@@ -19,11 +19,19 @@ type Props = {
 const CartSideBar = (props: Props) => {
   let totalCost = 0;
   const { userData } = useUserStore();
+  const { setIsLoading } = useLoadingStore();
   const queryClient = useQueryClient();
   const { data: cartData, isLoading, error } = GetCartData();
   const clearCartMutation = useMutation({
     mutationFn: () => ClearCart(`users/${userData?.uid}/cart`),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] }),
+        setIsLoading(false);
+    },
+    onError: (e) => {
+      setIsLoading(false);
+      console.error(e);
+    },
   });
   if (isLoading) {
     return null;
@@ -72,6 +80,7 @@ const CartSideBar = (props: Props) => {
         <button
           className="bg-[#e76a38] min-w-fit font-semibold px-4 py-2 rounded-xl h-full hover:bg-[#ff7a45] mx-2"
           onClick={() => {
+            setIsLoading(true)
             clearCartMutation.mutate();
           }}
         >

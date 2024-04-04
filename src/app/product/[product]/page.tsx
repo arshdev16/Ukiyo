@@ -9,11 +9,12 @@ import { DocumentData, doc, setDoc } from "firebase/firestore";
 import Loading from "../../../components/Loading/Loading";
 import SizeSelector from "./SizeSelector";
 import { AddToCart } from "@/src/use-cases/CartFunctions";
-import { useUserStore } from "@/src/lib/store";
+import { useLoadingStore, useUserStore } from "@/src/lib/store";
 type Props = {};
 
 const Product = (props: Props) => {
   const { userData } = useUserStore();
+  const {setIsLoading} = useLoadingStore()
   const userId = userData?.uid;
   const queryClient = useQueryClient();
   const path = usePathname().slice(8);
@@ -23,6 +24,7 @@ const Product = (props: Props) => {
   const [amount, setAmount] = useState(1);
   const [sizes, setSizes] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<string>("XL");
+
   const {
     data: documentData,
     isLoading,
@@ -49,8 +51,14 @@ const Product = (props: Props) => {
         amount,
         selectedSize
       ),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
-    onError: (e) => console.error(e),
+    onSuccess: () => {
+      setIsLoading(false);
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (e) => {
+      setIsLoading(false);
+      console.error(e);
+    },
   });
 
   if (isLoading) {
@@ -126,9 +134,7 @@ const Product = (props: Props) => {
       </div>
       <div className="flex flex-col gap-4 lg:w-2/4 mx-8">
         <div>
-          <span className=" text-[#e76a38] font-semibold">
-            Special Sneaker
-          </span>
+          <span className=" text-[#e76a38] font-semibold">Special Sneaker</span>
           <h1 className="text-3xl font-bold">{docData?.name}</h1>
         </div>
         <p className="text-gray-700">
@@ -163,6 +169,7 @@ const Product = (props: Props) => {
           <button
             className="bg-[#e76a38] text-white min-w-fit font-semibold py-3 px-4 md:px-16 rounded-xl h-full hover:bg-[#ff7a45]"
             onClick={() => {
+              setIsLoading(true)
               AddProductToCart.mutate();
             }}
           >
